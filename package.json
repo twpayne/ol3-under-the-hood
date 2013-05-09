@@ -1,0 +1,14 @@
+{
+  "name": "say-hello-to-ol3",
+  "version": "0.0.0",
+  "description": "FOSS4G-NA talk on OpenLayers 3",
+  "repository": "",
+  "license": "BSD",
+  "readmeFilename": "README.md",
+  "devDependencies": {
+    "bower": "0.9.2"
+  },
+  "scripts": {
+    "install": "bower install"
+  }
+}

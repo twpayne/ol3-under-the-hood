@@ -1,0 +1,7 @@
+{
+  "name": "ol3-tech-talk",
+  "version": "0.0.0",
+  "dependencies": {
+    "reveal.js": "2.3.0"
+  }
+}
