@@ -43,6 +43,68 @@
           </p>
         </section>
         <section>
+          <h2>Where does OL3 fit?</h2>
+          <img src="http://leafletjs.com/docs/images/logo.png"></img>
+          <img src="http://www.openlayers.org/images/OpenLayers.trac.png"></img>
+          <img src="http://cesium.agi.com/ClickToRun/images/CesiumLogo.png"></img>
+          <img src="http://www.openwebglobe.org/wordpress/wp-content/uploads/2011/07/logo_owg.png"></img>
+          ...
+        </section>
+        <section>
+          <h2>Vision</h2>
+          <ul>
+            <li>Convergence of 2D and 3D</li>
+            <!-- Notes:
+                 - 3D building and terrain data in cartesian space
+            -->
+            <li>Client-side rendering</li>
+            <!-- Notes:
+                 - Vector tiles
+                 - Lots of vectors with WebGL
+            -->
+            <li>WebGL and Canvas are perfect APIs for maps</li>
+            <!-- Notes:
+                 - Performance (GPU)
+                 - Using CSS 3D transforms is not reliable
+            -->
+          </ul>
+        </section>
+        <section>
+          <h2>Goals</h2>
+          <ul>
+            <li>Same level of functionality as OL2</li>
+            <!-- Notes:
+                 - Layer types
+                 - Formats
+                 - etc.
+            -->
+            <li>Consistent API</li>
+            <!-- Notes:
+                 - The OL2 APIs are not known to be the best.
+                 - The OL2 APIs are not consistent.
+            -->
+            <li>Support for local projections</li>
+            <!-- Notes:
+                 - Projection is a first-class type.
+                 - Europe relies a lot on local projections.
+            -->
+            <li>High performance</li>
+            <!-- Notes:
+                 - Leverage the latest advances of modern browsers.
+                 - High-performance JavaScript.
+                   - Closure Compiler.
+                   - Why not asm.js?
+                 - GPU acceleration.
+            -->
+            <li>Create a flexible architecture</li>
+            <!-- Notes:
+                 - Multi-renderer architecture.
+                 - Allowing to use, and experiment with, different
+                   rendering technologies (DOM, Canvas, WebGL)
+            -->
+          </ul>
+        </section>
+        <section>
           <h2>ol.Map</h2>
           <pre><code>
 var map = new ol.Map({
@@ -71,6 +133,11 @@ var map = new ol.Map({
             vector layer example
           </a>
         </section>
+        <section>
+          <h2>First Lessons Learned</h2>
+          <ul>
+            <li>WebGL is a low-level API</li>
+          </ul>
         <section>
           <h2>That's it!</h2>
         </section>
