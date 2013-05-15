@@ -27,6 +27,39 @@
       .ex-link {
         font-size: smaller;
       }
+      #logos {
+        height: 250px;
+        margin-top: 100px;
+        position: relative;
+      }
+      #logos > div {
+        position: absolute;
+      }
+      #logos-left {
+        left: 0;
+        top: 0;
+      }
+      #logos-right {
+        right: 0;
+        top: 0;
+      }
+      #logos-center {
+        top: 0;
+        left: -webkit-calc(50% - 111px);
+        left: -moz-calc(50% - 111px);
+        left: calc(50% - 111px);
+      }
+      #logos div > * {
+        display: block;
+      }
+      #logos div > span {
+        text-align: left;
+      }
+      #logos div > span img {
+        float: left;
+        margin: 0 10px 0 0;
+      }
+
     </style>
   </head>
   <body>
@@ -41,14 +74,6 @@
           <p class="fragment fade-in">
             Introduce OpenLayers 3
           </p>
-        </section>
-        <section>
-          <h2>Where does OL3 fit?</h2>
-          <img src="http://leafletjs.com/docs/images/logo.png"></img>
-          <img src="http://www.openlayers.org/images/OpenLayers.trac.png"></img>
-          <img src="http://cesium.agi.com/ClickToRun/images/CesiumLogo.png"></img>
-          <img src="http://www.openwebglobe.org/wordpress/wp-content/uploads/2011/07/logo_owg.png"></img>
-          ...
         </section>
         <section>
           <h2>Vision</h2>
@@ -68,6 +93,31 @@
                  - Using CSS 3D transforms is not reliable
             -->
           </ul>
+        </section>
+        <section>
+          <h2>Where does OL3 fit?</h2>
+          <div id="logos">
+            <div id="logos-left" class="fragment">
+              <span style="text-align:left;">
+                <img class="plain"
+                     src="http://www.openlayers.org/images/OpenLayers.trac.png"></img>
+                OpenLayers 2
+              </span>
+              <img class="plain"
+                   src="http://leafletjs.com/docs/images/logo.png"></img>
+            </div>
+            <div id="logos-right" class="fragment">
+              <img class="plain"
+                   src="http://cesium.agi.com/ClickToRun/images/CesiumLogo.png"></img>
+              <img class="plain"
+                   src="http://www.openwebglobe.org/wordpress/wp-content/uploads/2011/07/logo_owg.png"></img>
+            </div>
+            <div id="logos-center" class="fragment">
+                <img class="plain"
+                     src="http://ol3js.org/resources/openlayers.png"></img>
+                OpenLayers 3
+            </div>
+          </div>
         </section>
         <section>
           <h2>Goals</h2>
