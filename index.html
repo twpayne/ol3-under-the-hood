@@ -191,6 +191,35 @@ var map = new ol.Map({
           </a>
         </section>
         <section>
+          <h2>Closure Compiler</h2>
+          <ul>
+            <li>Variable renaming.</li>
+            <li>Dead code elimination.</li>
+            <li>Property flattening.</li>
+            <li>Prototype method devirtualization.</li>
+            <li>Inlining</li>
+        </section>
+        <section>
+          <h2>Closure Compiler Example</h2>
+          <pre><code>
+          goog.provide('ANamespace.ASubNamespace.AClass');
+          ANamespace.ASubNamespace.AClass = function() {
+            this.aProperty = 'prop1';
+          };
+          ANamespace.ASubNamespace.AClass.prototype.aMethod =
+              function() {
+            this.aProperty = 'change';
+          };
+          var anInstance = new ANamespace.ASubNamespace.AClass();
+          anInstance.aMethod();
+          </code></pre>
+          compiles to:
+          <pre><code>
+          window.b=new function(){this.a="prop1"};window.b.a="change";
+          </code></pre>
+          (<a clss="ex-link" href="http://closure-compiler.appspot.com/">http://closure-compiler.appspot.com/</a>)
+        </section>
+        <section>
           <h2>Current Status</h2>
         </section>
         <section>
