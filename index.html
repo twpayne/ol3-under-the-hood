@@ -82,6 +82,7 @@
             <li>Convergence of 2D and 3D</li>
             <!-- Notes:
                  - 3D building and terrain data in cartesian space.
+                 - Reference: new Google Maps API.
             -->
             <li>Client-side rendering (vector tiles)</li>
             <!-- Notes:
@@ -120,26 +121,32 @@
                 OpenLayers 3
             </div>
           </div>
+          <!-- Notes:
+               - More functionality than Leaflet.
+                 - Support for more layer types, formats, etc.
+                 - Support for irregular tile grids.
+                 - Support for local projections.
+                 - Built-in functionality, as opposed to 3d-party plugins.
+               - More general/mainstream than Cesium etc.
+                 - Easier to work with.
+                 - No strict dependency on WebGL.
+                 - Support for less capable browsers.
+                 - Mobile support.
+          -->
         </section>
         <section>
-          <h2>Goals</h2>
+          <h2>Current Goals</h2>
           <ul>
-            <li>Build on OL2</li>
+            <li>Port OL2 code</li>
             <!-- Notes:
                  - Features that people like and need.
                    - Support standards.
                    - Layer types (e.g. single image)
                    - Formats.
                    - Drawing tools.
-                 - Provide a better API
-                   - More consistent API
             -->
-            <li>Support for local projections</li>
-            <!-- Notes:
-                 - Projection is a first-class type.
-                 - Europe relies a lot on local projections.
-            -->
-            <li>High performance</li>
+            <li>Offer a better/more consistent API</li>
+            <li>Focus on high performance</li>
             <!-- Notes:
                  - Leverage the latest in web technologies.
                    - WebGL, Canvas
@@ -151,9 +158,10 @@
             -->
             <li>Create a flexible architecture</li>
             <!-- Notes:
+                 - To meet our future goals (3D, ...).
                  - Multi-renderer architecture.
-                 - Allowing to use, and experiment with, different
-                   rendering technologies (DOM, Canvas, WebGL).
+                 - Allowing to use, and experiment with, different rendering
+                   technologies (DOM, Canvas, WebGL).
                  - See Tom's presentation for more information.
             -->
           </ul>
