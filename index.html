@@ -29,22 +29,21 @@
       }
       #logos {
         height: 250px;
-        margin-top: 100px;
         position: relative;
       }
       #logos > div {
         position: absolute;
       }
       #logos-left {
-        left: 0;
+        left: 80px;
         top: 71px;
       }
       #logos-right {
-        right: 0;
+        right: 75px;
         top: 53px;
       }
       #logos-center {
-        top: 0;
+        top: -20px;
         left: -webkit-calc(50% - 111px);
         left: -moz-calc(50% - 111px);
         left: calc(50% - 111px);
@@ -81,25 +80,33 @@
         </section>
         <section>
           <h2>Vision</h2>
-          <h3>(where OL3 is going)</h3>
-          <ul>
-            <li>Convergence of 2D and 3D</li>
-            <!-- Notes:
-                 - 3D building and terrain data in cartesian space.
-                 - Reference: new Google Maps API.
-            -->
-            <li>Client-side rendering (vector tiles)</li>
-            <!-- Notes:
-                 - Vector tiles.
-                 - Lots of vectors with WebGL.
-            -->
-            <li>Maps are Graphics</li>
-            <!-- Notes:
-                 - Performance (GPU).
-                 - Using CSS 3D transforms is not reliable.
-                 - Browsers better and better support Graphics.
-            -->
+          <h3>a.k.a. where OL3 is going</h3>
+        </section>
+        <section>
+          <h2>Convergence of 2D and 3D</h2>
+          <img src="osm3d.jpg" alt="Building on an OSM map"></img>
+          <!-- Notes:
+               - 3D building and terrain data in cartesian space.
+               - References: Google Maps API, Nokia Maps 3D WebGL.
+          -->
           </ul>
+        </section>
+        <section>
+          <h2>Client-side rendering</li>
+          <img src="many-points-map.png" alt="Many points map"></img>
+          <!-- Notes:
+               - Vector tiles.
+               - Lots of vectors with WebGL.
+          -->
+        </section>
+        <section>
+          <h2>Maps are Graphics</h2>
+          <img src="teapot-map.jpg" alt="Teapot map"></img>
+          <!-- Notes:
+               - Performance (GPU).
+               - Using CSS 3D transforms is not reliable.
+               - Browsers better and better support Graphics.
+          -->
         </section>
         <section>
           <h2>Where does OL3 fit?</h2>
