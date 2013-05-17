@@ -192,7 +192,6 @@ var map = new ol.Map({
             <li>R-Tree with additional index dimension</li>
             <li>Render by tiles</li>
             <li>One rendering pass per symbolizer and geometry type</li>
-            <li>Analytic hit detection with symbolizer size adjustment</li>
           </ul>
           <br><br>
           <a class="ex-link" href="http://ol3js.org/en/master/examples/vector-layer.html">
@@ -201,10 +200,13 @@ var map = new ol.Map({
         </section>
         <section>
           <h2>Interacting with Map Content</h2>
-          <p>Same API for all layer types</p>
+          <ul>
+            <li>Same API for all layer types</li>
+            <li>Analytic hit detection for vector layers</li>
+          </ul>
           <pre><code>map.getFeatureInfo({
   pixel: evt.getPixel(),
-  layers: [countries],
+  layers: [countries], // optional
   success: function(features) {
     $('#info').html('');
     for (var i = 0, ii = features.length; i < ii; ++i) {
