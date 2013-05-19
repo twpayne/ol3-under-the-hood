@@ -172,29 +172,14 @@ var map = new ol.Map({
         <section>
           <h2>Vector Data and Canvas 2D Rendering</h2>
           <ul>
-            <li>R-Tree for fast feature access</li>
+            <li>Indexing: by geometry type and bounds (R-Tree)</li>
             <li>Render by tiles</li>
-            <li>One rendering pass per symbolizer and geometry type</li>
+            <li>Render groups of same symbolizer and geometry type</li>
           </ul>
           <br><br>
           <a class="ex-link" href="http://ol3js.org/en/master/examples/vector-layer.html">
             vector layer example
           </a>
-        </section>
-        <section>
-          <h2>Styling and Symbolization</h2>
-          <ul>
-            <li>Feature styles and rule based styling</li>
-            <li>Multiple symbolizers per feature</li>
-            <li>Choices: ol3 style API, CartoCSS or SLD</li>
-          </ul>
-          <br><br>
-          <a class="ex-link" href="http://ol3js.org/en/master/examples/style-rules.html">
-            style rules example
-          </a>
-          <!-- Notes:
-               - For now, rules are defined by arbitrary filter functions
-          -->
         </section>
         <section>
           <h2>Interacting with Map Content</h2>
@@ -219,14 +204,37 @@ map.getFeatureInfo({
           </a>
         </section>
         <section>
+          <h2>Styling and Symbolization</h2>
+          <ul>
+            <li>Feature styles and rule based styling</li>
+            <li>Multiple symbolizers per feature</li>
+            <li>Choices: ol3 style API, CartoCSS or SLD</li>
+          </ul>
+          <br><br>
+          <a class="ex-link" href="http://ol3js.org/en/master/examples/style-rules.html">
+            style rules example
+          </a>
+          <!-- Notes:
+               - For now, rules are defined by arbitrary filter functions
+          -->
+        </section>
+        <section>
           <h2>Vector Format Parsers</h2>
           <ul>
-            <li>Asynchronous API for better network link support</li>
-            <li>Reprojection during parsing</li>
+            <li class="fragment fade-in">Geometries use GeoJSON coordinates structure
+            <pre><code data-trim>
+ol.parser.GeoJSON.prototype.parsePolygon_ =
+    function(json, opt_vertices) {
+  return new ol.geom.Polygon(
+      json.coordinates, opt_vertices);
+};
+            </code></pre></li>
+            <li class="fragment fade-in">Reprojection during parsing
+            <pre><code data-trim>
+vector.parseFeatures(xhr.responseText, geojson, proj);
+            </code></pre></li>
+            <li class="fragment fade-in">Support for asynchronous loading</li>
           </ul>
-          <pre><code data-trim>
-vector.parseFeatures(xhr.responseText, geojson, projection);
-          </code></pre>
         </section>
         <section>
           <h2>Closure Compiler</h2>
