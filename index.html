@@ -27,36 +27,15 @@
       .ex-link {
         font-size: smaller;
       }
-      #logos {
-        height: 250px;
-        position: relative;
-      }
       #logos > div {
-        position: absolute;
+        padding: 0 10px;
+        display: inline-block;
+        text-align: center;
+        vertical-align: middle;
       }
-      #logos-left {
-        left: 80px;
-        top: 71px;
-      }
-      #logos-right {
-        right: 75px;
-        top: 53px;
-      }
-      #logos-center {
-        top: -20px;
-        left: -webkit-calc(50% - 111px);
-        left: -moz-calc(50% - 111px);
-        left: calc(50% - 111px);
-      }
-      #logos div > * {
-        display: block;
-      }
-      #logos div > span {
-        text-align: left;
-      }
-      #logos div > span img {
-        float: left;
-        margin: 0 10px 0 0;
+      #logos > div img {
+        margin: 0;
+        vertical-align: text-bottom;
       }
 
     </style>
@@ -110,21 +89,22 @@
         </section>
         <section>
           <h2>Where does OL3 fit?</h2>
+          <br>
           <div id="logos">
-            <div id="logos-left" class="fragment">
-              <span style="text-align:left;">
-                <img src="img/ol2-logo.png"></img>
-                OpenLayers 2
-              </span>
+            <div class="fragment" data-fragment-index="0">
+              <img src="img/ol2-logo.png"></img> OpenLayers 2
+              <br><br>
               <img src="img/leaflet-logo.png"></img>
             </div>
-            <div id="logos-right" class="fragment">
-              <img src="img/cesium-logo.png"></img>
-              <img src="img/owg-logo.png"></img>
+            <div class="fragment" data-fragment-index="2">
+              <img src="img/ol3-logo.png"></img>
+              <br>
+              OpenLayers 3
             </div>
-            <div id="logos-center" class="fragment">
-                <img src="img/ol3-logo.png"></img>
-                OpenLayers 3
+            <div class="fragment" data-fragment-index="1">
+              <img src="img/cesium-logo.png"></img>
+              <br><br>
+              <img src="img/owg-logo.png"></img>
             </div>
           </div>
           <!-- Notes:
