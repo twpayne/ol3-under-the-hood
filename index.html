@@ -197,7 +197,7 @@ var map = new ol.Map({
         <section>
           <h2>Vector Data and Canvas 2D Rendering</h2>
           <ul>
-            <li>R-Tree with additional index dimension</li>
+            <li>R-Tree for fast feature access</li>
             <li>Render by tiles</li>
             <li>One rendering pass per symbolizer and geometry type</li>
           </ul>
@@ -205,6 +205,20 @@ var map = new ol.Map({
           <a class="ex-link" href="http://ol3js.org/en/master/examples/vector-layer.html">
             vector layer example
           </a>
+        </section>
+        <section>
+          <h2>Styling and Symbolization</h2>
+          <ul>
+            <li>Feature styles and rule based styling</li>
+            <li>Multiple symbolizers per feature</li>
+            <li>Choices: ol3 style API, CartoCSS or SLD</li>
+          </ul>
+          <br><br>
+          <a class="ex-link" href="http://ol3js.org/en/master/examples/style-rules.html">
+            style rules example
+          <!-- Notes:
+               - For now, rules are defined by arbitrary filter functions
+          -->
         </section>
         <section>
           <h2>Interacting with Map Content</h2>
@@ -225,6 +239,14 @@ var map = new ol.Map({
           <a class="ex-link" href="http://ol3js.org/en/master/examples/kml.html">
             kml example
           </a>
+        </section>
+        <section>
+          <h2>Vector Format Parsers</h2>
+          <ul>
+            <li>Asynchronous API for better network link support</li>
+            <li>Reprojection during parsing</li>
+          </ul>
+          <pre><code>vector.parseFeatures(xhr.responseText, geojson, projection);</code></pre>
         </section>
         <section>
           <h2>Closure Compiler</h2>
