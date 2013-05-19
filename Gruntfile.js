@@ -9,7 +9,7 @@ module.exports = function(grunt) {
         'index.html',
         'theme/**/*.*',
         'components/**/*.css',
-        'components/**/*.js',
+        'components/**/*.js'
       ]
     }
   });
