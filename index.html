@@ -10,7 +10,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
     <link rel="stylesheet" href="components/reveal.js/css/reveal.min.css">
-    <link rel="stylesheet" href="components/reveal.js/css/theme/default.css" id="theme">
+    <link rel="stylesheet" href="theme/ol3.css" id="theme">
 
     <!-- For syntax highlighting -->
     <link rel="stylesheet" href="components/reveal.js/lib/css/zenburn.css">
@@ -19,10 +19,10 @@
     <script src="components/reveal.js/lib/js/html5shiv.js"></script>
     <![endif]-->
     <style>
-      .reveal section img.plain {
-        border: none;
-        background: none;
-        box-shadow: none;
+      .reveal h1.beefy {
+        font-weight: bold;
+        text-transform: uppercase;
+        text-shadow: 10px 10px 6px rgba(0, 0, 0, 0.2);
       }
       .ex-link {
         font-size: smaller;
@@ -66,7 +66,7 @@
     <div class="reveal">
       <div class="slides">
         <section>
-          <h1>ol3</h1>
+          <h1 class="beefy">ol3</h1>
         </section>
         <section>
           <h2>Intro</h2>
@@ -84,7 +84,7 @@
         </section>
         <section>
           <h2>Convergence of 2D and 3D</h2>
-          <img src="img/osm3d.jpg" alt="Building on an OSM map"></img>
+          <img class="framed" src="img/osm3d.jpg" alt="Building on an OSM map"></img>
           <!-- Notes:
                - 3D building and terrain data in cartesian space.
                - References: Google Maps API, Nokia Maps 3D WebGL.
@@ -93,7 +93,7 @@
         </section>
         <section>
           <h2>Client-side rendering</li>
-          <img src="img/many-points-map.png" alt="Many points map"></img>
+          <img class="framed" src="img/many-points-map.png" alt="Many points map"></img>
           <!-- Notes:
                - Vector tiles.
                - Lots of vectors with WebGL.
@@ -101,7 +101,7 @@
         </section>
         <section>
           <h2>Maps are Graphics</h2>
-          <img src="img/teapot-map.jpg" alt="Teapot map"></img>
+          <img class="framed" src="img/teapot-map.jpg" alt="Teapot map"></img>
           <!-- Notes:
                - Performance (GPU).
                - Using CSS 3D transforms is not reliable.
@@ -113,22 +113,17 @@
           <div id="logos">
             <div id="logos-left" class="fragment">
               <span style="text-align:left;">
-                <img class="plain"
-                     src="img/ol2-logo.png"></img>
+                <img src="img/ol2-logo.png"></img>
                 OpenLayers 2
               </span>
-              <img class="plain"
-                   src="img/leaflet-logo.png"></img>
+              <img src="img/leaflet-logo.png"></img>
             </div>
             <div id="logos-right" class="fragment">
-              <img class="plain"
-                   src="img/cesium-logo.png"></img>
-              <img class="plain"
-                   src="img/owg-logo.png"></img>
+              <img src="img/cesium-logo.png"></img>
+              <img src="img/owg-logo.png"></img>
             </div>
             <div id="logos-center" class="fragment">
-                <img class="plain"
-                     src="img/ol3-logo.png"></img>
+                <img src="img/ol3-logo.png"></img>
                 OpenLayers 3
             </div>
           </div>
@@ -179,7 +174,7 @@
           </ul>
         </section>
         <section>
-          <h2>ol.Map</h2>
+          <h2><code>ol.Map</code></h2>
           <pre><code data-trim>
 var map = new ol.Map({
   layers: [layer],
@@ -284,7 +279,7 @@ window.b=new function(){this.a="prop1"};window.b.a="change";
         </section>
         <section>
           <div>
-            <img class="plain" src="img/closure-compiler-by-tmcw.png" alt="Closure is a big buyin, but probably worth it. --tmcw"></img>
+            <img src="img/closure-compiler-by-tmcw.png" alt="Closure is a big buyin, but probably worth it. --tmcw"></img>
           </div>
           Yes, and Yes!
         </section>
@@ -327,8 +322,7 @@ window.b=new function(){this.a="prop1"};window.b.a="change";
         progress: true,
         history: true,
         center: true,
-
-        theme: 'default',
+        rollingLinks: false,
         transition: 'linear', // default/cube/page/concave/zoom/linear/fade/none
 
         // Optional libraries used to extend on reveal.js
