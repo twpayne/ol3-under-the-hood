@@ -180,7 +180,7 @@
         </section>
         <section>
           <h2>ol.Map</h2>
-          <pre><code>
+          <pre><code data-trim>
 var map = new ol.Map({
   layers: [layer],
   target: 'map',
@@ -226,7 +226,8 @@ var map = new ol.Map({
             <li>Same API for all layer types</li>
             <li>Analytic hit detection for vector layers</li>
           </ul>
-          <pre><code>map.getFeatureInfo({
+          <pre><code data-trim>
+map.getFeatureInfo({
   pixel: evt.getPixel(),
   layers: [countries], // optional
   success: function(features) {
@@ -235,7 +236,8 @@ var map = new ol.Map({
       $('#info').append(features[i].get('name') + '&lt;br&gt;');
     }
   }
-});</code></pre>
+});
+          </code></pre>
           <a class="ex-link" href="http://ol3js.org/en/master/examples/kml.html">
             kml example
           </a>
@@ -246,7 +248,9 @@ var map = new ol.Map({
             <li>Asynchronous API for better network link support</li>
             <li>Reprojection during parsing</li>
           </ul>
-          <pre><code>vector.parseFeatures(xhr.responseText, geojson, projection);</code></pre>
+          <pre><code data-trim>
+vector.parseFeatures(xhr.responseText, geojson, projection);
+          </code></pre>
         </section>
         <section>
           <h2>Closure Compiler</h2>
@@ -259,21 +263,21 @@ var map = new ol.Map({
         </section>
         <section>
           <h2>Closure Compiler Example</h2>
-          <pre><code>
-          goog.provide('ANamespace.ASubNamespace.AClass');
-          ANamespace.ASubNamespace.AClass = function() {
-            this.aProperty = 'prop1';
-          };
-          ANamespace.ASubNamespace.AClass.prototype.aMethod =
-              function() {
-            this.aProperty = 'change';
-          };
-          var anInstance = new ANamespace.ASubNamespace.AClass();
-          anInstance.aMethod();
+          <pre><code data-trim>
+goog.provide('ANamespace.ASubNamespace.AClass');
+ANamespace.ASubNamespace.AClass = function() {
+  this.aProperty = 'prop1';
+};
+ANamespace.ASubNamespace.AClass.prototype.aMethod =
+    function() {
+  this.aProperty = 'change';
+};
+var anInstance = new ANamespace.ASubNamespace.AClass();
+anInstance.aMethod();
           </code></pre>
           compiles to:
-          <pre><code>
-          window.b=new function(){this.a="prop1"};window.b.a="change";
+          <pre><code data-trim>
+window.b=new function(){this.a="prop1"};window.b.a="change";
           </code></pre>
           (<a clss="ex-link" href="http://closure-compiler.appspot.com/">http://closure-compiler.appspot.com/</a>)
         </section>
