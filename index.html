@@ -155,7 +155,7 @@
         </section>
         <section>
           <h2><code>ol.Map</code></h2>
-          <pre><code data-trim>
+          <pre><code class="javascript" data-trim>
 var map = new ol.Map({
   layers: [layer],
   target: 'map',
@@ -187,7 +187,7 @@ var map = new ol.Map({
             <li>Same API for all layer types</li>
             <li>Analytic hit detection for vector layers</li>
           </ul>
-          <pre><code data-trim>
+          <pre><code class="javascript" data-trim>
 map.getFeatureInfo({
   pixel: evt.getPixel(),
   layers: [countries], // optional
@@ -222,7 +222,7 @@ map.getFeatureInfo({
           <h2>Vector Format Parsers</h2>
           <ul>
             <li class="fragment fade-in">Geometries use GeoJSON coordinates structure
-            <pre><code data-trim>
+            <pre><code class="javascript" data-trim>
 ol.parser.GeoJSON.prototype.parsePolygon_ =
     function(json, opt_vertices) {
   return new ol.geom.Polygon(
@@ -230,7 +230,7 @@ ol.parser.GeoJSON.prototype.parsePolygon_ =
 };
             </code></pre></li>
             <li class="fragment fade-in">Reprojection during parsing
-            <pre><code data-trim>
+            <pre><code class="javascript" data-trim>
 vector.parseFeatures(xhr.responseText, geojson, proj);
             </code></pre></li>
             <li class="fragment fade-in">Support for asynchronous loading</li>
@@ -247,7 +247,7 @@ vector.parseFeatures(xhr.responseText, geojson, proj);
         </section>
         <section>
           <h2>Closure Compiler Example</h2>
-          <pre><code data-trim>
+          <pre><code class="javascript" data-trim>
 goog.provide('ANamespace.ASubNamespace.AClass');
 ANamespace.ASubNamespace.AClass = function() {
   this.aProperty = 'prop1';
@@ -260,7 +260,7 @@ var anInstance = new ANamespace.ASubNamespace.AClass();
 anInstance.aMethod();
           </code></pre>
           compiles to:
-          <pre><code data-trim>
+          <pre><code class="javascript" data-trim>
 window.b=new function(){this.a="prop1"};window.b.a="change";
           </code></pre>
           (<a clss="ex-link" href="http://closure-compiler.appspot.com/">http://closure-compiler.appspot.com/</a>)
