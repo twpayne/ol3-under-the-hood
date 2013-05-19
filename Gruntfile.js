@@ -5,8 +5,12 @@ module.exports = function(grunt) {
 
   grunt.initConfig({
     'gh-pages': {
-      repo: 'git@github.com:tschaub/say-hello-to-ol3.git',
-      src: ['index.html', 'components/**/*']
+      src: [
+        'index.html',
+        'theme/**/*.*',
+        'components/**/*.css',
+        'components/**/*.js',
+      ]
     }
   });
 
