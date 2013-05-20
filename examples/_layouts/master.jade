@@ -1,0 +1,16 @@
+block context
+  // defaults go here, template may override
+  - var title = 'Examples';
+
+doctype 5
+html
+  head
+    title OL3 - #{title}
+    link(rel='stylesheet', href='http://ol3js.org/en/master/build/ol.css')
+    link(rel='stylesheet', href='style.css')
+    block styles
+    script(src='http://ol3js.org/en/master/build/ol.js')
+  body
+    block content
+      div#map
+    block scripts
