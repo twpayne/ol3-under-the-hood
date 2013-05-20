@@ -67,7 +67,10 @@ module.exports = function(grunt) {
       }
     },
     'gh-pages': {
-      src: path.join(build, '**/*')
+      options: {
+        base: build
+      },
+      src: '**/*'
     },
     clean: {
       all: build
