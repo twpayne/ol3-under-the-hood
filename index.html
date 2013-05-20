@@ -207,6 +207,19 @@ var mapbox = new ol.layer.TileLayer({
           -->
         </section>
         <section>
+          <h2><code>ol.Layer</code> / <code>ol.Source</code></h2>
+          <br>
+          <span>and vector too!</span>
+          <pre><code class="javascript" data-trim>
+var vector = new ol.layer.Vector({
+  source: new ol.source.Vector({
+    projection: ol.projection.get('EPSG:4326')
+  })
+});
+          </code></pre>
+          <span>more to come on vector ...</span>
+        </section>
+        <section>
           <h2>Vector Data and Canvas 2D Rendering</h2>
           <ul>
             <li>Indexing: by geometry type and bounds (R-Tree)</li>
