@@ -7,7 +7,6 @@ module.exports = function(grunt) {
   var build = path.join('.grunt', 'self');
 
   grunt.initConfig({
-    // copy all files that don't require any preprocessing
     copy: {
       local: {
         // local files with no pre-processing

@@ -2,10 +2,7 @@ var map = new ol.Map({
   target: 'map',
   layers: [
     new ol.layer.TileLayer({
-      source: new ol.source.BingMaps({
-        key: 'AlQLZ0-5yk301_ESrmNLma3LYxEKNSg7w-e_knuRfyYFtld-UFvXVs38NOulku3Q',
-        style: 'Aerial'
-      })
+      source: new ol.source.OSM()
     })
   ],
   view: new ol.View2D({

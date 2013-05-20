@@ -157,16 +157,17 @@
           <h1>Show me the code!</h1>
         </section>
         <section>
-          <h2><code>ol.Map</code></h2>
-          <pre><code class="javascript" data-trim>
+          <h2><code>ol.Map</code> / <code>ol.View</code></h2>
+          <pre class="narrow"><code class="javascript" data-trim>
+var view = new ol.View2D({
+  center: [0, 0],
+  zoom: 0
+});
 var map = new ol.Map({
   target: 'map',
   layers: [layer],
-  view: new ol.View2D({
-    center: [0, 0],
-    zoom: 0
-  })
-});            
+  view: view
+});
           </code></pre>
           <a href="./examples/hello-world.html">
             hello world example
