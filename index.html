@@ -95,8 +95,7 @@
           <!-- Notes:
                - Rely on the Canvas and WebGL Graphics APIs.
                - Performance (GPU).
-               - Using CSS 3D transforms is not reliable.
-               - Browsers better and better support Graphics.
+               - Isolate the map from the rest of the page.
           -->
         </section>
         <section>
@@ -120,29 +119,34 @@
             </div>
           </div>
           <!-- Notes:
-               - More functionality than Leaflet.
-                 - Support for more layer types, formats, etc.
-                 - Support for irregular tile grids.
-                 - Support for arbitrary resolutions.
-                 - Support for local projections.
-                 - Support for advanced drawing tools.
-                 - Built-in functionality, as opposed to 3d-party plugins.
-               - Better and more consistent APIs than OL2.
-               - Focus on performance.
-                 - WebGL.
-                 - GPU acceleration.
-                 - requestAnimationFrame.
-                 - Closure Compiler.
-               - Flexible architecture.
-                 - Multi-renderer architecture.
-                 - Allowing to use, and experiment with, different rendering
-                   technologies (DOM, Canvas, WebGL).
-                 - See Tom's presentation for more information.
-               - More general/mainstream than Cesium etc.
-                 - Easier to work with.
-                 - No strict dependency on WebGL.
-                 - Support for less capable browsers.
-                 - Mobile support.
+               - Leaflet:
+                 - Nice API, easy to work with.
+                 - Lightweight, works great on mobile.
+               - Cesium:
+                 - Fantastic virtual globe solution.
+               - OL3
+                 - Compared to Leaflet:
+                   - Support for many layer types, formats, etc.
+                   - Support for irregular tile grids.
+                   - Support for local projections.
+                   - Support for arbitrary resolutions.
+                   - Support for advanced drawing tools.
+                   - Built-in functionality, as opposed to 3d-party plugins.
+                 - Compared to OL2:
+                   - Better and more consistent APIs.
+                   - Smaller builds.
+                   - Better performance.
+                   - Flexible architecture.
+                 - Compared to Cesium.
+                   - Smaller and more compact than Cesium.
+                   - Easier to use.
+                   - WebGL not required.
+                   - Better mobile support.
+                 - Focus on performance.
+                   - WebGL.
+                   - GPU acceleration.
+                   - requestAnimationFrame.
+                   - Closure Compiler.
           -->
         </section>
         <section>
