@@ -88,6 +88,7 @@
           <h2>Maps are Graphics</h2>
           <img class="framed" src="img/teapot-map.jpg" alt="Teapot map">
           <!-- Notes:
+               - Rely on the Canvas and WebGL Graphics APIs.
                - Performance (GPU).
                - Using CSS 3D transforms is not reliable.
                - Browsers better and better support Graphics.
@@ -119,45 +120,25 @@
                  - Support for irregular tile grids.
                  - Support for arbitrary resolutions.
                  - Support for local projections.
+                 - Support for advanced drawing tools.
                  - Built-in functionality, as opposed to 3d-party plugins.
+               - Better and more consistent APIs than OL2.
+               - Focus on performance.
+                 - WebGL.
+                 - GPU acceleration.
+                 - requestAnimationFrame.
+                 - Closure Compiler.
+               - Flexible architecture.
+                 - Multi-renderer architecture.
+                 - Allowing to use, and experiment with, different rendering
+                   technologies (DOM, Canvas, WebGL).
+                 - See Tom's presentation for more information.
                - More general/mainstream than Cesium etc.
                  - Easier to work with.
                  - No strict dependency on WebGL.
                  - Support for less capable browsers.
                  - Mobile support.
           -->
-        </section>
-        <section>
-          <h2>Current Goals</h2>
-          <ul>
-            <li>Port OL2 code</li>
-            <!-- Notes:
-                 - Features that people like and need.
-                   - Support standards.
-                   - Layer types (e.g. single image)
-                   - Formats.
-                   - Drawing tools.
-            -->
-            <li>Offer a better/more consistent API</li>
-            <li>Focus on high performance</li>
-            <!-- Notes:
-                 - Leverage the latest in web technologies.
-                   - WebGL, Canvas
-                   - requestAnimationFrame
-                 - High-performance JavaScript.
-                   - Closure Compiler.
-                   - Why not asm.js?
-                 - GPU acceleration.
-            -->
-            <li>Create a flexible architecture</li>
-            <!-- Notes:
-                 - To meet our future goals (3D, ...).
-                 - Multi-renderer architecture.
-                 - Allowing to use, and experiment with, different rendering
-                   technologies (DOM, Canvas, WebGL).
-                 - See Tom's presentation for more information.
-            -->
-          </ul>
         </section>
         <section>
           <h1>Show me the code!</h1>
