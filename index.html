@@ -24,6 +24,9 @@
         text-transform: uppercase;
         text-shadow: 10px 10px 6px rgba(0, 0, 0, 0.2);
       }
+      .reveal ul.plain {
+        list-style-type: none;
+      }
       .ex-link {
         font-size: smaller;
       }
@@ -36,6 +39,9 @@
       #logos > div img {
         margin: 0;
         vertical-align: text-bottom;
+      }
+      pre.narrow {
+        width: 50%;
       }
 
     </style>
@@ -218,6 +224,38 @@ var vector = new ol.layer.Vector({
 });
           </code></pre>
           <span>more to come on vector ...</span>
+        </section>
+        <section>
+          <h2><code>ol.interaction</code></h2>
+          <ul class="plain">
+            <li><code>ol.interaction.Drag</code></li>
+            <li><code>ol.interaction.DragRotate</code></li>
+            <li><code>ol.interaction.KeyboardPan</code></li>
+            <li><code>ol.interaction.TouchZoom</code></li>
+            <li><code>// etc.</code></li>
+          </ul>
+        </section>
+        <section>
+          <h2><code>ol.control</code></h2>
+          <ul class="plain">
+            <li><code>ol.control.Zoom</code></li>
+            <li><code>ol.control.ScaleLine</code></li>
+            <li><code>ol.control.MousePosition</code></li>
+            <li><code>ol.control.Attribution</code></li>
+            <li><code>// etc.</code></li>
+          </ul>
+          <br><br>
+          <a href="./examples/interaction-control.html">
+            interaction/control example
+          </a>
+          <!--
+            Notes:
+              - configurable defaults
+              - easily styled
+              - demonstrate full-screen
+              - attributions and logo from source
+              - range slider with 2-way binding
+          -->
         </section>
         <section>
           <h2>Vector Data and Canvas 2D Rendering</h2>
