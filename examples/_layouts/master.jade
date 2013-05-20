@@ -9,8 +9,9 @@ html
     link(rel='stylesheet', href='http://ol3js.org/en/master/build/ol.css')
     link(rel='stylesheet', href='style.css')
     block styles
-    script(src='http://ol3js.org/en/master/build/ol.js')
   body
     block content
-      div#map
+      div#map.full
+    block extra
+    script(src='http://ol3js.org/en/master/build/ol.js')
     block scripts

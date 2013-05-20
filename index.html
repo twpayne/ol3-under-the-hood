@@ -258,6 +258,48 @@ var vector = new ol.layer.Vector({
           -->
         </section>
         <section>
+          <h1>What! No popups?!?</h1>
+        </section>
+        <section>
+          <h2><code>ol.Overlay</code></h2>
+          <pre><code class="javascript" data-trim>
+var marker = new ol.Overlay({
+  map: map,
+  position: buriedTreasure,
+  element: document.createTextElement('X marks the spot')
+});
+          </code></pre>
+        </section>
+        <section>
+          <h2><code>ol.Overlay</code></h2>
+          <pre><code class="javascript" data-trim>
+var el = document.getElementById('popup');
+
+var popup = new ol.Overlay({
+  map: map,
+  element: el
+});
+
+map.on('click', function(evt) {
+  $(el).popover({
+    'placement': 'top',
+    'html': true,
+    'content': 'Roll your own popup!'
+  });
+  $(el).popover('show');
+  popup.setPosition(evt.getCoordinate());
+});
+          </code></pre>
+          <a href="./examples/overlays.html">
+            overlay example
+          </a>
+          <!--
+            Notes:
+             - registering event listeners
+             - popup.bindTo('position', map.getView(), 'center')
+          -->
+        </section>
+        <section>
           <h2>Vector Data and Canvas 2D Rendering</h2>
           <ul>
             <li>Indexing: by geometry type and bounds (R-Tree)</li>
