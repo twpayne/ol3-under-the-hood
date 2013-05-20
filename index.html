@@ -377,12 +377,12 @@ vector.parseFeatures(xhr.responseText, geojson, proj);
         </section>
         <section>
           <h2>Closure Compiler</h2>
-          <ul>
-            <li>Variable renaming.</li>
-            <li>Dead code elimination.</li>
-            <li>Property flattening.</li>
-            <li>Prototype method devirtualization.</li>
-            <li>Inlining</li>
+          <ul class="plain">
+            <li class="fragment fade-in">Variable renaming</li>
+            <li class="fragment fade-in">Dead code elimination</li>
+            <li class="fragment fade-in">Property flattening</li>
+            <li class="fragment fade-in">Prototype method devirtualization</li>
+            <li class="fragment fade-in">Inlining</li>
         </section>
         <section>
           <h2>Closure Compiler Example</h2>
@@ -402,7 +402,6 @@ anInstance.aMethod();
           <pre><code class="javascript" data-trim>
 window.b=new function(){this.a="prop1"};window.b.a="change";
           </code></pre>
-          (<a clss="ex-link" href="http://closure-compiler.appspot.com/">http://closure-compiler.appspot.com/</a>)
         </section>
         <section>
           <div>
