@@ -300,6 +300,30 @@ map.on('click', function(evt) {
           -->
         </section>
         <section>
+          <h2><code>ol.animation</code></h2>
+          <pre><code class="javascript" data-trim>
+function fly(map, home, duration) {
+  var view = map.getView().getView2D();
+  var start = +new Date();
+  var pan = ol.animation.pan({
+    duration: duration,
+    source: view.getCenter(),
+    start: start
+  });
+  var bounce = ol.animation.bounce({
+    duration: duration,
+    resolution: 4 * view.getResolution(),
+    start: start
+  });
+  map.addPreRenderFunctions([pan, bounce]);
+  view.setCenter(home);
+}
+          </code></pre>
+          <a href="./examples/animation.html">
+            animation example
+          </a>
+        </section>
+        <section>
           <h2>Vector Data and Canvas 2D Rendering</h2>
           <ul>
             <li>Indexing: by geometry type and bounds (R-Tree)</li>
