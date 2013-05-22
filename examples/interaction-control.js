@@ -29,6 +29,11 @@ rotation.bindTo('value', map.getView(), 'rotation');
 var geolocation = new ol.Geolocation();
 geolocation.bindTo('projection', map.getView());
 
+geolocation.on('position_changed', function() {
+  map.getView().getView2D().setCenter(geolocation.getPosition());
+  geolocation.setTracking(false);
+});
+
 document.getElementById('locate').onclick = function() {
   geolocation.setTracking(true);
 };
