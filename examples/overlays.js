@@ -19,17 +19,22 @@ var popup = new ol.Overlay({
   map: map,
   element: document.getElementById('popup')
 });
+
+var hdms;
+function getContent() {
+  return '<p>The location you clicked is:</p><code>' + hdms + '</code>';
+}
+
 map.on('click', function(evt) {
   var element = popup.getElement();
   var coordinate = evt.getCoordinate();
-  var hdms = ol.coordinate.toStringHDMS(ol.projection.transform(
+  hdms = ol.coordinate.toStringHDMS(ol.projection.transform(
       coordinate, 'EPSG:3857', 'EPSG:4326'));
-
   popup.setPosition(coordinate);
   $(element).popover({
     'placement': 'top',
     'html': true,
-    'content': '<p>The location you clicked was:</p><code>' + hdms + '</code>'
+    'content': getContent
   });
   $(element).popover('show');
 });

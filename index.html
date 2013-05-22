@@ -202,7 +202,8 @@ var mapbox = new ol.layer.TileLayer({
             Notes:
               - arbitrary resolutions
               - interim tiles (maps w/o edges)
-              - prioritized tile queue
+              - tile cache (LRU, each source)
+              - prioritized tile queue (in frame, close to focus, at resolution)
           -->
         </section>
         <section>
