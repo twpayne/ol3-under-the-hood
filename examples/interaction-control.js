@@ -30,7 +30,20 @@ var geolocation = new ol.Geolocation();
 geolocation.bindTo('projection', map.getView());
 
 geolocation.on('position_changed', function() {
-  map.getView().getView2D().setCenter(geolocation.getPosition());
+  var duration = 2000;
+  var start = +new Date();
+  var pan = ol.animation.pan({
+    duration: duration,
+    source: view.getCenter(),
+    start: start
+  });
+  var bounce = ol.animation.bounce({
+    duration: duration,
+    resolution: 4 * view.getResolution(),
+    start: start
+  });
+  map.addPreRenderFunctions([pan, bounce]);
+  view.setCenter(geolocation.getPosition());
   geolocation.setTracking(false);
 });
 
