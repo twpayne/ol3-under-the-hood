@@ -319,7 +319,7 @@ function fly(map, home, duration) {
         </section>
         <section>
           <h2>Vector Data and Canvas 2D Rendering</h2>
-          <ul>
+          <ul class="plain">
             <li>Indexing: by geometry type and bounds (R-Tree)</li>
             <li>Render by tiles</li>
             <li>Render groups of same symbolizer and geometry type</li>
@@ -331,7 +331,7 @@ function fly(map, home, duration) {
         </section>
         <section>
           <h2>Interacting with Features</h2>
-          <ul>
+          <ul class="plain">
             <li>Same API for all layer types</li>
             <li>Analytic hit detection for vector layers</li>
           </ul>
@@ -353,7 +353,7 @@ map.getFeatureInfo({
         </section>
         <section>
           <h2>Styling and Symbolization</h2>
-          <ul>
+          <ul class="plain">
             <li>Feature styles and rule based styling</li>
             <li>Multiple symbolizers per feature</li>
             <li>Choices: ol3 style API, CartoCSS or SLD</li>
@@ -368,7 +368,7 @@ map.getFeatureInfo({
         </section>
         <section>
           <h2>Vector Format Parsers</h2>
-          <ul>
+          <ul class="plain">
             <li class="fragment fade-in">Geometries use GeoJSON coordinates structure
             <pre><code class="javascript" data-trim>
 ol.parser.GeoJSON.prototype.parsePolygon_ =
