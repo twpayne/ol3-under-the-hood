@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-    <title>Say Hello to OpenLayers 3</title>
+    <title>OpenLayers 3 Under The Hood</title>
 
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
@@ -53,401 +53,307 @@
 
     <div class="reveal">
       <div class="slides">
+
         <section>
           <h1 class="beefy">ol3</h1>
+          <h2 class="beefy">under the hood</h2>
+          <a class="ex-link" href="http://ol3js.org/">
+            http://ol3js.org/
+          </a>
         </section>
+
         <section>
-          <h2>Intro</h2>
-          <p class="fragment fade-in">
-            Introducing OpenLayers 3
-            <br>
-            <a class="ex-link" href="http://ol3js.org/">
-              http://ol3js.org/
-            </a>
+					<h2>Objectives</h2>
+          <ul>
+            <li>Understand ol3 architecture</li>
+            <li>Explain design decisions</li>
+            <li>Fast-start ol3 development</li>
+          </ul>
+        </section>
+
+				<section>
+					<h2>ol3 Requirements</h2>
+          <ul>
+            <li>All of OpenLayers 2's functionality</li>
+            <li>All map projections</li>
+            <li>All widely-used browsers</li>
+            <li>Huge range of raster and vector data sources</li>
+            <li>2D, tilted 2D, 3D and globe views</li>
+            <li>Mobile, tablet, desktop and server</li>
+            <li>Components usable by other projects</li>
+            <li>Future unknown functionality</li>
+            <li>Small library size</li>
+            <li>&quot;Simple&quot; API</li>
+          </ul>
+				</section>
+
+				<section>
+					<p>
+            OpenLayers 3 must be everything to everybody
+					</p>
+				</section>
+
+				<section>
+					<h2>Tackling complexity</h2>
+          <ul>
+            <li>Best available JavaScript tooling</li>
+            <li>Small components</li>
+            <li>Well-defined responsibilities</li>
+            <li>Unidirectional dependencies</li>
+            <li>Generic internal representations</li>
+          </ul>
+				</section>
+
+				<section>
+          <p>Nobody individual will use more<br>than 15% of ol3's functionality</p>
+          <p class="fragment">...except every individual<br>uses a <em>different</em> 15%</p>
+				</section>
+
+				<section>
+					<h2>Tooling</h2>
+          <ul>
+            <li>Closure Compiler in advanced mode</li>
+            <li>Closure Linter</li>
+            <li>PhantomJS</li>
+            <li>Mocha + expect.js</li>
+            <li>Travis CI</li>
+            <li class="fragment">...all turned up to 11!</li>
+          </ul>
+				</section>
+
+				<section>
+					<h2>Closure Compiler and Closure Library</h2>
+          <p class="fragment">
+            <strong>You</strong> don't have to use it in your application!
           </p>
-          <!-- Notes:
-               - Fund raising effort.
-               - Multiple companies involved.
-          -->
-        </section>
-        <section>
-          <h1>Vision</h1>
-          <h3>a.k.a. where OL3 is going</h3>
-        </section>
-        <section>
-          <h2>2D 3D Convergence</h2>
-          <img class="framed" src="img/osm3d.jpg" alt="Building on an OSM map">
-          <p>(Image courtesy of the OSM-3D.org project)</p>
-          <!-- Notes:
-               - 3D building and terrain data in cartesian space.
-               - References: Google Maps API, Nokia Maps 3D WebGL.
-          -->
-          </ul>
-        </section>
-        <section>
-          <h2>Client-side rendering</li>
-          <img class="framed" src="img/many-points-map.png" alt="Many points map">
-          <!-- Notes:
-               - Vector tiles.
-               - Lots of vectors with WebGL.
-          -->
-        </section>
-        <section>
-          <h2>Maps are Graphics</h2>
-          <img class="framed" src="img/teapot-map.jpg" alt="Teapot map">
-          <!-- Notes:
-               - Rely on the Canvas and WebGL Graphics APIs.
-               - Performance (GPU).
-               - Isolate the map from the rest of the page.
-          -->
-        </section>
-        <section>
-          <h2>Where does OL3 fit?</h2>
-          <br>
-          <div id="logos">
-            <div class="fragment" data-fragment-index="0">
-              <img src="img/ol2-logo.png"> OpenLayers 2
-              <br><br>
-              <img src="img/leaflet-logo.png">
-            </div>
-            <div class="fragment" data-fragment-index="2">
-              <img src="img/ol3-logo.png">
-              <br>
-              OpenLayers 3
-            </div>
-            <div class="fragment" data-fragment-index="1">
-              <img src="img/cesium-logo.png">
-              <br><br>
-              <img src="img/owg-logo.png">
-            </div>
-          </div>
-          <!-- Notes:
-               - Leaflet:
-                 - Nice API, easy to work with.
-                 - Lightweight, works great on mobile.
-               - Cesium:
-                 - Fantastic virtual globe solution.
-               - OL3
-                 - Compared to Leaflet:
-                   - Support for many layer types, formats, etc.
-                   - Support for irregular tile grids.
-                   - Support for local projections.
-                   - Support for arbitrary resolutions.
-                   - Support for advanced drawing tools.
-                   - Built-in functionality, as opposed to 3d-party plugins.
-                 - Compared to OL2:
-                   - Better and more consistent APIs.
-                   - Smaller builds.
-                   - Better performance.
-                   - Flexible architecture.
-                 - Compared to Cesium.
-                   - Smaller and more compact than Cesium.
-                   - Easier to use.
-                   - WebGL not required.
-                   - Better mobile support.
-                 - Focus on performance.
-                   - WebGL.
-                   - GPU acceleration.
-                   - requestAnimationFrame.
-                   - Closure Compiler.
-          -->
-        </section>
-        <section>
-          <h1>Show me the code!</h1>
-        </section>
-        <section>
-          <h2><code>ol.Map</code> / <code>ol.View</code></h2>
-          <pre class="narrow"><code class="javascript" data-trim>
-var view = new ol.View2D({
-  center: [0, 0],
-  zoom: 0
-});
-var map = new ol.Map({
-  target: 'map',
-  layers: [layer],
-  view: view
-});
-          </code></pre>
-          <a href="./examples/hello-world.html">
-            hello world example
-          </a>
-        </section>
-        <section>
-          <h2><code>ol.layer</code> / <code>ol.source</code></h2>
-          <pre><code class="javascript" data-trim>
-var osm = new ol.layer.TileLayer({
-  source: new ol.source.OSM()
-});
-          </code></pre>
-          <pre class="fragment fade-in"><code class="javascript" data-trim>
-var bing = new ol.layer.TileLayer({
-  source: new ol.source.BingMaps({
-    // your key here
-    key: 'AlQLZ0-5yk301_ESrmN...',
-    style: 'AerialWithLabels'
-  })
-}));
-          </code></pre>
-          <pre class="fragment fade-in"><code class="javascript" data-trim>
-var mapbox = new ol.layer.TileLayer({
-  source: new ol.source.TileJSON({
-    url: '//api.tiles.mapbox.com/v3/mapbox.world-dark.jsonp'
-  })
-});
-          </code></pre>
-          <a href="./examples/tiles-galore.html">
-            tiles galore example
-          </a>
-          <!--
-            Notes:
-              - arbitrary resolutions
-              - interim tiles (maps w/o edges)
-              - tile cache (LRU, each source)
-              - prioritized tile queue (in frame, close to focus, at resolution)
-          -->
-        </section>
-        <section>
-          <h2><code>ol.layer</code> / <code>ol.source</code></h2>
-          <br>
-          <span>and vector too!</span>
-          <pre><code class="javascript" data-trim>
-var vector = new ol.layer.Vector({
-  source: new ol.source.Vector({
-    projection: ol.projection.get('EPSG:4326')
-  })
-});
-          </code></pre>
-          <span>more to come on vector ...</span>
-        </section>
-        <section>
-          <h2><code>ol.interaction</code></h2>
-          <ul class="plain">
-            <li><code>ol.interaction.Drag</code></li>
-            <li><code>ol.interaction.DragRotate</code></li>
-            <li><code>ol.interaction.KeyboardPan</code></li>
-            <li><code>ol.interaction.TouchZoom</code></li>
-            <li><code>// etc.</code></li>
-          </ul>
-        </section>
-        <section>
-          <h2><code>ol.control</code></h2>
-          <ul class="plain">
-            <li><code>ol.control.Zoom</code></li>
-            <li><code>ol.control.ScaleLine</code></li>
-            <li><code>ol.control.MousePosition</code></li>
-            <li><code>ol.control.Attribution</code></li>
-            <li><code>// etc.</code></li>
-          </ul>
-          <br><br>
-          <a href="./examples/interaction-control.html">
-            interaction/control example
-          </a>
-          <!--
-            Notes:
-              - configurable defaults
-              - easily styled
-              - demonstrate full-screen
-              - attributions and logo from source
-              - range slider with 2-way binding
-          -->
-        </section>
-        <section>
-          <h1>What! No popups?!?</h1>
-        </section>
-        <section>
-          <h2><code>ol.Overlay</code></h2>
-          <pre><code class="javascript" data-trim>
-var marker = new ol.Overlay({
-  map: map,
-  position: buriedTreasure,
-  element: document.createTextElement('X marks the spot')
-});
-          </code></pre>
-        </section>
-        <section>
-          <h2><code>ol.Overlay</code></h2>
-          <pre><code class="javascript" data-trim>
-var el = document.getElementById('popup');
+				</section>
 
-var popup = new ol.Overlay({
-  map: map,
-  element: el
-});
+				<section>
+					<h2>Closure Compiler</h2>
+          <ul>
+            <li>Minification twice as good as UglifyJS (size)</li>
+            <li>25% speed boost (speed)</li>
+            <li>Produces &quot;perfect&quot; custom builds</li>
+            <li class="fragment">JS for engineers <i>vs.</i> JS for computers</li>
+          </ul>
+				</section>
 
-map.on('click', function(evt) {
-  $(el).popover({
-    'placement': 'top',
-    'html': true,
-    'content': 'Roll your own popup!'
-  });
-  $(el).popover('show');
-  popup.setPosition(evt.getCoordinate());
-});
-          </code></pre>
-          <a href="./examples/overlays.html">
-            overlay example
-          </a>
-          <!--
-            Notes:
-             - registering event listeners
-             - popup.bindTo('position', map.getView(), 'center')
-          -->
+				<section>
+          <h2>ol3 full build sizes</h2>
+          <table>
+            <tr>
+              <td>Raw JavaScript</td>
+              <td>~900Kb + Closure library</td>
+            </tr>
+            <tr>
+              <td>Whitespace only, gzip'd</td>
+              <td>~240Kb</td>
+            </tr>
+            <tr>
+              <td>Simple optimizations, gzip'd</td>
+              <td>~150Kb</td>
+            </tr>
+            <tr>
+              <td>Advanced optimizations, gzip'd</td>
+              <td>~70Kb</td>
+            </tr>
+            <tr class="fragment">
+              <td>Application + ol3, gzip'd</td>
+              <td>~30Kb</td>
+            </tr>
+          </table>
         </section>
+
+        <section>
+          <blockquote>&ldquo;When you make things simpler, you often end up with more things&rdquo;</blockquote>
+          <p>&mdash; Rich Hickey, Simple Made Easy</p>
+        </section>
+
+				<section>
+					<h2><code>ol.Map</code></h2>
+          <center>
+            <table>
+              <tr>
+                <td>N &times;</td>
+                <td><code>ol.layer</code></td>
+              </tr>
+              <tr>
+                <td>1 &times;</td>
+                <td><code>ol.View</code></td>
+              </tr>
+              <tr>
+                <td>N &times;</td>
+                <td><code>ol.control</code></td>
+              </tr>
+              <tr>
+                <td>N &times;</td>
+                <td><code>ol.interaction</code></td>
+              </tr>
+              <tr>
+                <td>1 &times;</td>
+                <td><code>ol.renderer</code></td>
+              </tr>
+            </table>
+          </center>
+				</section>
+
+				<section>
+					<h2><code>ol.renderer</code></h2>
+          <ul>
+            <li class="fragment">DOM, Canvas and WebGL back-ends (<a href="http://ol3js.org/en/master/examples/side-by-side.html">example</a>)</li>
+            <li class="fragment"><code>requestAnimationFrame</code> (<a href="http://ol3js.org/en/master/examples/bing-maps.html">example</a>)</li>
+            <li class="fragment">60 fps performance = 16.67ms/frame</li>
+            <li class="fragment"><code>renderFrame</code> / <code>ol.FrameState</code></li>
+            <li class="fragment">Pre-render functions to modify state</li>
+            <li class="fragment">Post-render functions for low-priority/expensive operations</li>
+            <li class="fragment">Efficiency considerations</li>
+          </ul>
+				</section>
+
         <section>
           <h2><code>ol.animation</code></h2>
           <pre><code class="javascript" data-trim>
-function fly(map, home, duration) {
-  var view = map.getView().getView2D();
-  var start = +new Date();
-  var pan = ol.animation.pan({
-    duration: duration,
-    source: view.getCenter(),
-    start: start
-  });
-  var bounce = ol.animation.bounce({
-    duration: duration,
-    resolution: 4 * view.getResolution(),
-    start: start
-  });
-  map.addPreRenderFunctions([pan, bounce]);
-  view.setCenter(home);
-}
-          </code></pre>
-          <a href="./examples/animation.html">
-            animation example
-          </a>
-        </section>
-        <section>
-          <h2>Vector Data and Canvas 2D Rendering</h2>
-          <ul class="plain">
-            <li>Indexing: by geometry type and bounds (R-Tree)</li>
-            <li>Render by tiles</li>
-            <li>Render groups of same symbolizer and geometry type</li>
-          </ul>
-          <br><br>
-          <a class="ex-link" href="./examples/vector-layer.html">
-            vector layer example
-          </a>
-        </section>
-        <section>
-          <h2>Interacting with Features</h2>
-          <ul class="plain">
-            <li>Same API for all layer types</li>
-            <li>Analytic hit detection for vector layers</li>
-          </ul>
-          <pre><code class="javascript" data-trim>
-map.getFeatureInfo({
-  pixel: evt.getPixel(),
-  layers: [countries], // optional
-  success: function(features) {
-    $('#info').html('');
-    for (var i = 0, ii = features.length; i < ii; ++i) {
-      $('#info').append(features[i].get('name') + '&lt;br&gt;');
-    }
+function fly(map, frameState) {
+  if (frameState.time &lt; start) {
+    frameState.animate = true;
+    frameState.viewHints[ol.ViewHint.ANIMATING] += 1;
+    return true;
+  } else if (frameState.time &lt; start + duration) {
+    var delta = easing((frameState.time - start) / duration);
+    var deltaResolution = resolution - frameState.view2DState.resolution;
+    frameState.animate = true;
+    frameState.view2DState.resolution += delta * deltaResolution;
+    frameState.viewHints[ol.ViewHint.ANIMATING] += 1;
+    return true;
+  } else {
+    return false;
   }
+};
+          </code></pre>
+          <a href="http://ol3js.org/en/master/examples/animation.html">Example</a>
+        </section>
+
+				<section>
+          <h2><code>ol.interaction</code> / <code>ol.control</code></h2>
+          <ul>
+            <li>
+              <code>ol.interaction</code>
+              <ul>
+                <li>No DOM presence</li>
+                <li>Handles user input</li>
+                <li>e.g. DragPan, DoubleClickZoom, TouchRotate, etc.</li>
+              </ul>
+            </li>
+            <li>
+              <code>ol.control</code>
+              <ul>
+                <li>DOM presence</li>
+                <li>Drive and are driven by the map</li>
+                <li>e.g. Zoom buttons, Scale line, Attribution</li>
+              </ul>
+            </li>
+          </ul>
+				</section>
+
+        <section>
+          <h2><code>ol.interaction</code></h2>
+          <pre><code class="javascript" data-trim>
+var map = new ol.Map({
+  interactions: ol.interaction.defaults({}, [
+    new ol.interaction.DragRotateAndZoom()
+  ])
+  // ...
 });
           </code></pre>
-          <a class="ex-link" href="./examples/synthetic-data.html">
-            synthetic data example
-          </a>
+          <a href="http://ol3js.org/en/master/examples/full-screen-drag-rotate-and-zoom.html">Example</a>
         </section>
+
         <section>
-          <h2>Styling and Symbolization</h2>
-          <ul class="plain">
-            <li>Feature styles and rule based styling</li>
-            <li>Multiple symbolizers per feature</li>
-            <li>Choices: ol3 style API, CartoCSS or SLD</li>
-          </ul>
-          <br><br>
-          <a class="ex-link" href="./examples/style-rules.html">
-            style rules example
-          </a>
-          <!-- Notes:
-               - For now, rules are defined by arbitrary filter functions
-          -->
-        </section>
-        <section>
-          <h2>Vector Format Parsers</h2>
-          <ul class="plain">
-            <li class="fragment fade-in">Geometries use GeoJSON coordinates structure
-            <pre><code class="javascript" data-trim>
-ol.parser.GeoJSON.prototype.parsePolygon_ =
-    function(json, opt_vertices) {
-  return new ol.geom.Polygon(
-      json.coordinates, opt_vertices);
-};
-            </code></pre></li>
-            <li class="fragment fade-in">Reprojection during parsing
-            <pre><code class="javascript" data-trim>
-vector.parseFeatures(xhr.responseText, geojson, proj);
-            </code></pre></li>
-            <li class="fragment fade-in">Support for asynchronous loading</li>
-          </ul>
-        </section>
-        <section>
-        <h2><img src="img/closure-logo.png">Closure Compiler</h2>
-          <ul class="plain">
-            <li class="fragment fade-in">Variable renaming</li>
-            <li class="fragment fade-in">Dead code elimination</li>
-            <li class="fragment fade-in">Property flattening</li>
-            <li class="fragment fade-in">Prototype method devirtualization</li>
-            <li class="fragment fade-in">Inlining</li>
-          </ul>
-          <!-- Notes:
-               - Our build tools (hosted build tool included) will be
-                 based on the Closure tools. This will enable creating
-                 with just what the application developer needs.
-          -->
-        </section>
-        <section>
-          <h2>Closure Compiler Example</h2>
+          <h2><code>ol.control</code></h2>
           <pre><code class="javascript" data-trim>
-goog.provide('ANamespace.ASubNamespace.AClass');
-ANamespace.ASubNamespace.AClass = function() {
-  this.aProperty = 'prop1';
-};
-ANamespace.ASubNamespace.AClass.prototype.aMethod =
-    function() {
-  this.aProperty = 'change';
-};
-var anInstance = new ANamespace.ASubNamespace.AClass();
-anInstance.aMethod();
+var map = new ol.Map({
+  controls: ol.control.defaults({}, [
+    new ol.control.ScaleLine(),
+    new ol.control.FullScreen(),
+  ])
+  // ...
+});
           </code></pre>
-          compiles to:
+          <a href="http://tschaub.net/say-hello-to-ol3/examples/interaction-control.html">Example</a>
+        </section>
+
+				<section>
+          <p><code>ol.layer</code> = <code>ol.source</code> + presentation</p>
+				</section>
+
+        <section>
+          <table>
+            <tr>
+              <td style="text-align: right;">
+                BingMaps }<br>
+                DebugTiles }<br>
+                TiledWMS }<br>
+                TileJSON }<br>
+                WMTS }
+              </td>
+              <td style="text-align: center;">
+                <br>
+                <code>ol.TileGrid</code><br>
+                +<br>
+                Tile URL function
+              </td>
+              <td>
+                <br>
+                { ol.renderer.canvas<br>
+                { ol.renderer.dom<br>
+                { ol.renderer.webgl
+              </td>
+            </tr>
+            <tr class="fragment">
+              <td style="text-align: right;">N</td>
+              <td style="text-align: center;">+</td>
+              <td>M</td>
+            </tr>
+          </table>
+        </section>
+
+        <section>
           <pre><code class="javascript" data-trim>
-window.b=new function(){this.a="prop1"};window.b.a="change";
+var options = ol.source.WMTS.optionsFromCapabilities(
+    capabilities, 'fmzk');
+
+var map = new ol.Map({
+  layers: [
+    new ol.layer.TileLayer({
+      source: new ol.source.WMTS(options)
+    }
+  ]
+  // ...
+});
           </code></pre>
+          <a href="http://ol3js.org/en/master/examples/wmts-from-capabilities.html">Example</a>
         </section>
-        <section>
-          <div>
-            <img src="img/closure-compiler-by-tmcw.png" alt="Closure is a big buyin, but probably worth it. --tmcw">
-          </div>
-          Yes, and Yes!
-        </section>
-        <section>
-          <h2>Status</h2>
-          <ul class="plain fragment">
-            <li>Alpha 1 released</li>
-            <li>Limited, but useful</li>
-            <li>API in flux!</li>
+
+				<section>
+					<h2><code>ol.View</code></h2>
+          <ul>
+            <li class="fragment">Abstracts out 2D and 3D views</li>
+            <li class="fragment">2D: center, resolution, rotation</li>
+            <li class="fragment">3D: camera position, look at point, roll</li>
+            <li class="fragment"><a href="http://ol3js.org/ol3/cesium/examples/cesium.html">Example</a></li>
           </ul>
-        </section>
+				</section>
+
         <section>
-          <h2>Towards 3.0.0 Final</h2>
-          <ul class="plain">
-            <li class="fragment">More alphas and betas to come</li>
-            <li class="fragment">WebGL vector renderer</li>
-            <li class="fragment">API stabilization</li>
-          </ul>
+          <h2>Play</h2>
+          <p><a href="http://ol3js.org/">ol3js.org</a>
+          <h2>Get involved</h2>
+          <p><a href="https://github.com/openlayers/ol3">github.com/openlayers/ol3</a></p>
+          <p><a href="https://github.com/openlayers/ol3/wiki/Developer-Guide">wiki/Developer-Guide</a></p>
         </section>
-        <section>
-          <h2>Cesium Integration</h2>
-          <img src="img/cesium-ol3.png" alt="Cesium OpenLayers 3 integration">
-        </section>
-        <section>
-          <h2>Thanks!</h2>
-        </section>
+
       </div>
+
     </div>
 
     <!-- reveal.js loading and configuration -->
