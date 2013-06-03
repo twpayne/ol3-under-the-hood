@@ -1,0 +1,390 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>OpenLayers 3 Under The Hood</title>
+
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <link rel="stylesheet" href="components/reveal.js/css/reveal.min.css">
+    <link rel="stylesheet" href="theme/ol3.css" id="theme">
+
+    <!-- For syntax highlighting -->
+    <link rel="stylesheet" href="components/reveal.js/lib/css/zenburn.css">
+
+    <!--[if lt IE 9]>
+    <script src="components/reveal.js/lib/js/html5shiv.js"></script>
+    <![endif]-->
+    <style>
+      .reveal h1.beefy {
+        font-weight: bold;
+        text-transform: uppercase;
+        text-shadow: 10px 10px 6px rgba(0, 0, 0, 0.2);
+      }
+      .reveal ul.plain {
+        list-style-type: none;
+      }
+      .reveal h2 > img {
+        vertical-align: sub;
+      }
+      .ex-link {
+        font-size: smaller;
+      }
+      #logos > div {
+        padding: 0 10px;
+        display: inline-block;
+        text-align: center;
+        vertical-align: middle;
+      }
+      #logos > div img {
+        margin: 0;
+        vertical-align: text-bottom;
+      }
+      pre.narrow {
+        width: 50%;
+      }
+
+    </style>
+  </head>
+  <body>
+
+    <div class="reveal">
+      <div class="slides">
+
+        <section>
+          <h1 class="beefy">ol3</h1>
+          <h2 class="beefy">under the hood</h2>
+          <a class="ex-link" href="http://ol3js.org/">
+            http://ol3js.org/
+          </a>
+        </section>
+
+        <section>
+					<h2>Objectives</h2>
+          <ul>
+            <li>Understand ol3 architecture</li>
+            <li>Explain design decisions</li>
+            <li>Fast-start ol3 development</li>
+          </ul>
+        </section>
+
+				<section>
+					<h2>ol3 Requirements</h2>
+          <ul>
+            <li>All of OpenLayers 2's functionality</li>
+            <li>All map projections</li>
+            <li>All widely-used browsers</li>
+            <li>Huge range of raster and vector data sources</li>
+            <li>2D, tilted 2D, 3D and globe views</li>
+            <li>Mobile, tablet, desktop and server</li>
+            <li>Components usable by other projects</li>
+            <li>Future unknown functionality</li>
+            <li>Small library size</li>
+            <li>&quot;Simple&quot; API</li>
+          </ul>
+				</section>
+
+				<section>
+					<p>
+            OpenLayers 3 must be everything to everybody
+					</p>
+				</section>
+
+				<section>
+					<h2>Tackling complexity</h2>
+          <ul>
+            <li>Best available JavaScript tooling</li>
+            <li>Small components</li>
+            <li>Well-defined responsibilities</li>
+            <li>Unidirectional dependencies</li>
+            <li>Generic internal representations</li>
+          </ul>
+				</section>
+
+				<section>
+          <p>Nobody individual will use more<br>than 15% of ol3's functionality</p>
+          <p class="fragment">...except every individual<br>uses a <em>different</em> 15%</p>
+				</section>
+
+				<section>
+					<h2>Tooling</h2>
+          <ul>
+            <li>Closure Compiler in advanced mode</li>
+            <li>Closure Linter</li>
+            <li>PhantomJS</li>
+            <li>Mocha + expect.js</li>
+            <li>Travis CI</li>
+            <li class="fragment">...all turned up to 11!</li>
+          </ul>
+				</section>
+
+				<section>
+					<h2>Closure Compiler and Closure Library</h2>
+          <p class="fragment">
+            <strong>You</strong> don't have to use it in your application!
+          </p>
+				</section>
+
+				<section>
+					<h2>Closure Compiler</h2>
+          <ul>
+            <li>Minification twice as good as UglifyJS (size)</li>
+            <li>25% speed boost (speed)</li>
+            <li>Produces &quot;perfect&quot; custom builds</li>
+            <li class="fragment">JS for engineers <i>vs.</i> JS for computers</li>
+          </ul>
+				</section>
+
+				<section>
+          <h2>ol3 full build sizes</h2>
+          <table>
+            <tr>
+              <td>Raw JavaScript</td>
+              <td>~900Kb + Closure library</td>
+            </tr>
+            <tr>
+              <td>Whitespace only, gzip'd</td>
+              <td>~240Kb</td>
+            </tr>
+            <tr>
+              <td>Simple optimizations, gzip'd</td>
+              <td>~150Kb</td>
+            </tr>
+            <tr>
+              <td>Advanced optimizations, gzip'd</td>
+              <td>~70Kb</td>
+            </tr>
+            <tr class="fragment">
+              <td>Application + ol3, gzip'd</td>
+              <td>~30Kb</td>
+            </tr>
+          </table>
+        </section>
+
+        <section>
+          <blockquote>&ldquo;When you make things simpler, you often end up with more things&rdquo;</blockquote>
+          <p>&mdash; Rich Hickey, Simple Made Easy</p>
+        </section>
+
+				<section>
+					<h2><code>ol.Map</code></h2>
+          <center>
+            <table>
+              <tr>
+                <td>N &times;</td>
+                <td><code>ol.layer</code></td>
+              </tr>
+              <tr>
+                <td>1 &times;</td>
+                <td><code>ol.View</code></td>
+              </tr>
+              <tr>
+                <td>N &times;</td>
+                <td><code>ol.control</code></td>
+              </tr>
+              <tr>
+                <td>N &times;</td>
+                <td><code>ol.interaction</code></td>
+              </tr>
+              <tr>
+                <td>1 &times;</td>
+                <td><code>ol.renderer</code></td>
+              </tr>
+            </table>
+          </center>
+				</section>
+
+				<section>
+					<h2><code>ol.renderer</code></h2>
+          <ul>
+            <li class="fragment">DOM, Canvas and WebGL back-ends (<a href="http://ol3js.org/en/master/examples/side-by-side.html">example</a>)</li>
+            <li class="fragment"><code>requestAnimationFrame</code> (<a href="http://ol3js.org/en/master/examples/bing-maps.html">example</a>)</li>
+            <li class="fragment">60 fps performance = 16.67ms/frame</li>
+            <li class="fragment"><code>renderFrame</code> / <code>ol.FrameState</code></li>
+            <li class="fragment">Pre-render functions to modify state</li>
+            <li class="fragment">Post-render functions for low-priority/expensive operations</li>
+            <li class="fragment">Efficiency considerations</li>
+          </ul>
+				</section>
+
+        <section>
+          <h2><code>ol.animation</code></h2>
+          <pre><code class="javascript" data-trim>
+function fly(map, frameState) {
+  if (frameState.time &lt; start) {
+    frameState.animate = true;
+    frameState.viewHints[ol.ViewHint.ANIMATING] += 1;
+    return true;
+  } else if (frameState.time &lt; start + duration) {
+    var delta = easing((frameState.time - start) / duration);
+    var deltaResolution = resolution - frameState.view2DState.resolution;
+    frameState.animate = true;
+    frameState.view2DState.resolution += delta * deltaResolution;
+    frameState.viewHints[ol.ViewHint.ANIMATING] += 1;
+    return true;
+  } else {
+    return false;
+  }
+};
+          </code></pre>
+          <a href="http://ol3js.org/en/master/examples/animation.html">Example</a>
+        </section>
+
+				<section>
+          <h2><code>ol.interaction</code> / <code>ol.control</code></h2>
+          <ul>
+            <li>
+              <code>ol.interaction</code>
+              <ul>
+                <li>No DOM presence</li>
+                <li>Handles user input</li>
+                <li>e.g. DragPan, DoubleClickZoom, TouchRotate, etc.</li>
+              </ul>
+            </li>
+            <li>
+              <code>ol.control</code>
+              <ul>
+                <li>DOM presence</li>
+                <li>Drive and are driven by the map</li>
+                <li>e.g. Zoom buttons, Scale line, Attribution</li>
+              </ul>
+            </li>
+          </ul>
+				</section>
+
+        <section>
+          <h2><code>ol.interaction</code></h2>
+          <pre><code class="javascript" data-trim>
+var map = new ol.Map({
+  interactions: ol.interaction.defaults({}, [
+    new ol.interaction.DragRotateAndZoom()
+  ])
+  // ...
+});
+          </code></pre>
+          <a href="http://ol3js.org/en/master/examples/full-screen-drag-rotate-and-zoom.html">Example</a>
+        </section>
+
+        <section>
+          <h2><code>ol.control</code></h2>
+          <pre><code class="javascript" data-trim>
+var map = new ol.Map({
+  controls: ol.control.defaults({}, [
+    new ol.control.ScaleLine(),
+    new ol.control.FullScreen(),
+  ])
+  // ...
+});
+          </code></pre>
+          <a href="http://tschaub.net/say-hello-to-ol3/examples/interaction-control.html">Example</a>
+        </section>
+
+				<section>
+          <p><code>ol.layer</code> = <code>ol.source</code> + presentation</p>
+				</section>
+
+        <section>
+          <table>
+            <tr>
+              <td style="text-align: right;">
+                BingMaps }<br>
+                DebugTiles }<br>
+                TiledWMS }<br>
+                TileJSON }<br>
+                WMTS }
+              </td>
+              <td style="text-align: center;">
+                <br>
+                <code>ol.TileGrid</code><br>
+                +<br>
+                Tile URL function
+              </td>
+              <td>
+                <br>
+                { ol.renderer.canvas<br>
+                { ol.renderer.dom<br>
+                { ol.renderer.webgl
+              </td>
+            </tr>
+            <tr class="fragment">
+              <td style="text-align: right;">N</td>
+              <td style="text-align: center;">+</td>
+              <td>M</td>
+            </tr>
+          </table>
+        </section>
+
+        <section>
+          <pre><code class="javascript" data-trim>
+var options = ol.source.WMTS.optionsFromCapabilities(
+    capabilities, 'fmzk');
+
+var map = new ol.Map({
+  layers: [
+    new ol.layer.TileLayer({
+      source: new ol.source.WMTS(options)
+    }
+  ]
+  // ...
+});
+          </code></pre>
+          <a href="http://ol3js.org/en/master/examples/wmts-from-capabilities.html">Example</a>
+        </section>
+
+				<section>
+					<h2><code>ol.View</code></h2>
+          <ul>
+            <li class="fragment">Abstracts out 2D and 3D views</li>
+            <li class="fragment">2D: center, resolution, rotation</li>
+            <li class="fragment">3D: camera position, look at point, roll</li>
+            <li class="fragment"><a href="http://ol3js.org/ol3/cesium/examples/cesium.html">Example</a></li>
+          </ul>
+				</section>
+
+        <section>
+          <h2>Play</h2>
+          <p><a href="http://ol3js.org/">ol3js.org</a>
+          <h2>Get involved</h2>
+          <p><a href="https://github.com/openlayers/ol3">github.com/openlayers/ol3</a></p>
+          <p><a href="https://github.com/openlayers/ol3/wiki/Developer-Guide">wiki/Developer-Guide</a></p>
+        </section>
+
+      </div>
+
+    </div>
+
+    <!-- reveal.js loading and configuration -->
+    <script src="components/reveal.js/lib/js/head.min.js"></script>
+    <script src="components/reveal.js/js/reveal.min.js"></script>
+    <script>
+      // Full list of configuration options available here:
+      // https://github.com/hakimel/reveal.js#configuration
+      Reveal.initialize({
+        controls: true,
+        progress: true,
+        history: true,
+        center: true,
+        rollingLinks: false,
+        transition: 'linear', // default/cube/page/concave/zoom/linear/fade/none
+
+        // Optional libraries used to extend on reveal.js
+        dependencies: [{
+          src: 'components/reveal.js/lib/js/classList.js',
+          condition: function() {
+            return !document.body.classList;
+          }
+        }, {
+          src: 'components/reveal.js/plugin/highlight/highlight.js',
+          async: true,
+          callback: function() {
+            hljs.initHighlightingOnLoad();
+          }
+        }]
+      });
+
+    </script>
+  </body>
+</html>
