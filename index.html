@@ -65,8 +65,8 @@
         <section>
 					<h2>Objectives</h2>
           <ul>
-            <li>Understand ol3 architecture</li>
             <li>Explain design decisions</li>
+            <li>Understand ol3 architecture</li>
             <li>Fast-start ol3 development</li>
           </ul>
         </section>
@@ -94,19 +94,19 @@
 				</section>
 
 				<section>
-					<h2>Tackling complexity</h2>
-          <ul>
-            <li>Best available JavaScript tooling</li>
-            <li>Small components</li>
-            <li>Well-defined responsibilities</li>
-            <li>Unidirectional dependencies</li>
-            <li>Generic internal representations</li>
-          </ul>
+          <p>Nobody individual will use more<br>than 15% of ol3's functionality</p>
+          <p class="fragment">...except every individual<br>uses a <em>different</em> 15%</p>
 				</section>
 
 				<section>
-          <p>Nobody individual will use more<br>than 15% of ol3's functionality</p>
-          <p class="fragment">...except every individual<br>uses a <em>different</em> 15%</p>
+					<h2>Tackling complexity</h2>
+          <ul>
+            <li>Small, de-coupled, components</li>
+            <li>Well-defined responsibilities</li>
+            <li>Unidirectional dependencies</li>
+            <li>Generic internal representations</li>
+            <li>Best available JavaScript tooling</li>
+          </ul>
 				</section>
 
 				<section>
@@ -134,6 +134,7 @@
             <li>Minification twice as good as UglifyJS (size)</li>
             <li>25% speed boost (speed)</li>
             <li>Produces &quot;perfect&quot; custom builds</li>
+            <li class="fragment">Steep (but worthwhile) learning curve</li>
             <li class="fragment">JS for engineers <i>vs.</i> JS for computers</li>
           </ul>
 				</section>
@@ -143,30 +144,25 @@
           <table>
             <tr>
               <td>Raw JavaScript</td>
-              <td>~900Kb + Closure library</td>
+              <td>~1Mb + Closure library</td>
             </tr>
             <tr>
               <td>Whitespace only, gzip'd</td>
-              <td>~240Kb</td>
+              <td>~290Kb</td>
             </tr>
             <tr>
               <td>Simple optimizations, gzip'd</td>
-              <td>~150Kb</td>
+              <td>~180Kb</td>
             </tr>
             <tr>
               <td>Advanced optimizations, gzip'd</td>
-              <td>~70Kb</td>
+              <td>~90Kb</td>
             </tr>
             <tr class="fragment">
               <td>Application + ol3, gzip'd</td>
-              <td>~30Kb</td>
+              <td>~32Kb</td>
             </tr>
           </table>
-        </section>
-
-        <section>
-          <blockquote>&ldquo;When you make things simpler, you often end up with more things&rdquo;</blockquote>
-          <p>&mdash; Rich Hickey, Simple Made Easy</p>
         </section>
 
 				<section>
@@ -174,8 +170,8 @@
           <center>
             <table>
               <tr>
-                <td>N &times;</td>
-                <td><code>ol.layer</code></td>
+                <td>1 &times;</td>
+                <td><code>ol.layer.LayerGroup</code></td>
               </tr>
               <tr>
                 <td>1 &times;</td>
@@ -201,12 +197,12 @@
 					<h2><code>ol.renderer</code></h2>
           <ul>
             <li class="fragment">DOM, Canvas and WebGL back-ends (<a href="http://ol3js.org/en/master/examples/side-by-side.html">example</a>)</li>
-            <li class="fragment"><code>requestAnimationFrame</code> (<a href="http://ol3js.org/en/master/examples/bing-maps.html">example</a>)</li>
+            <li class="fragment"><code>requestAnimationFrame</code></li>
             <li class="fragment">60 fps performance = 16.67ms/frame</li>
             <li class="fragment"><code>renderFrame</code> / <code>ol.FrameState</code></li>
-            <li class="fragment">Pre-render functions to modify state</li>
+            <li class="fragment">Before render functions to modify state</li>
             <li class="fragment">Post-render functions for low-priority/expensive operations</li>
-            <li class="fragment">Efficiency considerations</li>
+            <li class="fragment">Efficiency considerations (view hints, animating state, GC)</li>
           </ul>
 				</section>
 
@@ -215,10 +211,11 @@
           <pre><code class="javascript" data-trim>
 function fly(map, frameState) {
   if (frameState.time &lt; start) {
-    frameState.animate = true;
-    frameState.viewHints[ol.ViewHint.ANIMATING] += 1;
+    // before animation starts
+    // ...
     return true;
   } else if (frameState.time &lt; start + duration) {
+    // animation running
     var delta = easing((frameState.time - start) / duration);
     var deltaResolution = resolution - frameState.view2DState.resolution;
     frameState.animate = true;
@@ -226,105 +223,101 @@ function fly(map, frameState) {
     frameState.viewHints[ol.ViewHint.ANIMATING] += 1;
     return true;
   } else {
+    // animation finished
     return false;
   }
 };
           </code></pre>
-          <a href="http://ol3js.org/en/master/examples/animation.html">Example</a>
-        </section>
-
-				<section>
-          <h2><code>ol.interaction</code> / <code>ol.control</code></h2>
-          <ul>
-            <li>
-              <code>ol.interaction</code>
-              <ul>
-                <li>No DOM presence</li>
-                <li>Handles user input</li>
-                <li>e.g. DragPan, DoubleClickZoom, TouchRotate, etc.</li>
-              </ul>
-            </li>
-            <li>
-              <code>ol.control</code>
-              <ul>
-                <li>DOM presence</li>
-                <li>Drive and are driven by the map</li>
-                <li>e.g. Zoom buttons, Scale line, Attribution</li>
-              </ul>
-            </li>
-          </ul>
-				</section>
-
-        <section>
-          <h2><code>ol.interaction</code></h2>
-          <pre><code class="javascript" data-trim>
-var map = new ol.Map({
-  interactions: ol.interaction.defaults({}, [
-    new ol.interaction.DragRotateAndZoom()
-  ])
-  // ...
-});
-          </code></pre>
-          <a href="http://ol3js.org/en/master/examples/full-screen-drag-rotate-and-zoom.html">Example</a>
+          <a href="http://ol3js.org/en/master/examples/animation.html">Animation example</a> &middot;
+          <a href="https://github.com/openlayers/ol3/blob/master/examples/animation.js#L122-143">Composable example</a>
         </section>
 
         <section>
-          <h2><code>ol.control</code></h2>
-          <pre><code class="javascript" data-trim>
-var map = new ol.Map({
-  controls: ol.control.defaults({}, [
-    new ol.control.ScaleLine(),
-    new ol.control.FullScreen(),
-  ])
-  // ...
-});
-          </code></pre>
-          <a href="http://tschaub.net/say-hello-to-ol3/examples/interaction-control.html">Example</a>
-        </section>
-
-				<section>
-          <p><code>ol.layer</code> = <code>ol.source</code> + presentation</p>
-				</section>
-
-        <section>
+          <h2>Sources, layers, and renderers</h2>
           <table>
             <tr>
-              <td style="text-align: right;">
-                BingMaps }<br>
-                DebugTiles }<br>
-                TiledWMS }<br>
-                TileJSON }<br>
-                WMTS }
-              </td>
-              <td style="text-align: center;">
-                <br>
-                <code>ol.TileGrid</code><br>
-                +<br>
-                Tile URL function
-              </td>
-              <td>
-                <br>
-                { ol.renderer.canvas<br>
-                { ol.renderer.dom<br>
-                { ol.renderer.webgl
-              </td>
+              <th><u>Source</u></th>
+              <th><u>Source class</u></th>
+              <th><u>Layer</u></th>
+              <th><u>Renderer</u></th>
             </tr>
-            <tr class="fragment">
-              <td style="text-align: right;">N</td>
-              <td style="text-align: center;">+</td>
-              <td>M</td>
+            <tr>
+              <td>OSM, WMTS, XYZ, TileWMS</td>
+              <td>ol.source.Tile</td>
+              <td>ol.layer.Tile</td>
+              <td>Canvas, WebGL, DOM</td>
+            </tr>
+            <tr>
+              <td>ImageWMS, ImageStatic</td>
+              <td>ol.source.Image</td>
+              <td>ol.layer.Image</td>
+              <td>Canvas, WebGL, DOM</td>
+            </tr>
+            <tr>
+              <td>GeoJSON, GML, KML</td>
+              <td>ol.source.Vector</td>
+              <td>ol.layer.Vector</td>
+              <td>Canvas, WebGL*, <s>DOM</s></td>
+              <td>
+          </table>
+        </section>
+
+        <section>
+          <h2>Sources vs. layers</h2>
+          <ul>
+            <li>Sources operate on data</li>
+            <li>Layers describe how a source is presented</li>
+            <li>Source params: URL, API key, WMS params, ...</li>
+            <li>Layer params: visible, opacity, ...</li>
+            <li>Sources can have multiple "users", or used in isolation</li>
+            <li>Sources provide a uniform interface</li>
+          </ul>
+        </section>
+
+        <section>
+          <h2>Tile sources</h2>
+          <ul>
+            <li>Metadata request</li>
+            <li>Tile arrangement</li>
+            <li>Tile sizes</li>
+            <li>Tile resolutions</li>
+            <li>Tile coordinate origin</li>
+            <li>Tile URL generation</li>
+            <li>Date line wrap</li>
+            <li>Extra parameters (e.g. WMTS dimensions)</li>
+            <li>Data extent</li>
+            <li>Attributions</li>
+            <li>Load balancing</li>
+          </ul>
+        </section>
+
+        <section>
+          <h2><code>ol.source.Tile</code></h2>
+          <table>
+            <tr>
+              <th>Tile grid</th>
+              <td><a href="http://ol3js.org/en/master/examples/canvas-tiles.html">How tiles are laid out</a></td>
+            </tr>
+            <tr>
+              <th>Tile URL function</th>
+              <td>Converts tile coordinates to URLs</td>
+            </tr>
+            <tr>
+              <th>Tile load function</th>
+              <td><a href="http://fredj.io/ol/pointillism/pointillism.html">For advanced use</a></td>
             </tr>
           </table>
         </section>
 
         <section>
+          <h2><code>ol.source.Tile</code></h2>
           <pre><code class="javascript" data-trim>
 var options = ol.source.WMTS.optionsFromCapabilities(
     capabilities, 'fmzk');
 
 var map = new ol.Map({
   layers: [
-    new ol.layer.TileLayer({
+    new ol.layer.Tile({
       source: new ol.source.WMTS(options)
     }
   ]
@@ -334,15 +327,60 @@ var map = new ol.Map({
           <a href="http://ol3js.org/en/master/examples/wmts-from-capabilities.html">Example</a>
         </section>
 
-				<section>
-					<h2><code>ol.View</code></h2>
+        <section>
+          <h2><code>ol.Object and ol.Collection</code></h2>
           <ul>
-            <li class="fragment">Abstracts out 2D and 3D views</li>
-            <li class="fragment">2D: center, resolution, rotation</li>
-            <li class="fragment">3D: camera position, look at point, roll</li>
-            <li class="fragment"><a href="http://ol3js.org/ol3/cesium/examples/cesium.html">Example</a></li>
+            <li>Events when properties change</li>
+            <li>Events when elements are added or removed</li>
+            <li>Property binding allows property values to be shared between objects</li>
           </ul>
-				</section>
+        </section>
+
+        <section>
+          <h2><code>ol.Object</code></h2>
+          <pre><code class="javascript" data-trim>
+var map = new ol.Map({
+  view: new ol.View2D({
+    center: [0, 0],
+    zoom: 2
+  })
+  // ...
+});
+
+var view = map.getView();
+
+var rotationSlider = document.getElementById('rotation');
+var rotation = new ol.dom.Input(rotationSlider);
+rotation.bindTo('valueAsNumber', view, 'rotation');
+          </code></pre>
+          <a href="http://ol3js.org/en/master/examples/bind-input.html">Bind input example</a> &middot;
+          <a href="http://ol3js.org/en/master/examples/side-by-side.html">Side-by-side example</a>
+        </section>
+
+        <section>
+          <h2>ol.layer.LayerGroup</h2>
+          <ul>
+            <li>Layers are a <i>tree</i> rather than a flat list</li>
+            <li>Multiple layers can be treated as a single layer</li>
+          </ul>
+          <p><a href="http://ol3js.org/en/master/examples/layer-group.html">Layer group example</a>
+        </section>
+
+        <section>
+          <h2>Next steps</h2>
+          <ul>
+            <li>WebGL-compatible internal vector API</li>
+            <li>Performance improvements</li>
+            <li>Vector editing</li>
+            <li>Build system improvements</li>
+          </ul>
+          <h2 class="fragment">Long term</h2>
+          <ul class="fragment">
+            <li>More flexible composition</li>
+            <li>Cesium / OpenWebGlobe integration</li>
+            <li>Flat Earth 3D</li>
+          </ul>
+        </section>
 
         <section>
           <h2>Play</h2>
