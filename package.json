@@ -1,7 +1,7 @@
 {
-  "name": "say-hello-to-ol3",
+  "name": "ol3-under-the-hood",
   "version": "0.0.0",
-  "description": "FOSS4G-NA talk on OpenLayers 3",
+  "description": "FOSS4G talk on OpenLayers 3",
   "repository": "",
   "license": "BSD",
   "readmeFilename": "README.md",
